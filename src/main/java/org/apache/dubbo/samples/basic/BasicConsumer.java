@@ -42,8 +42,10 @@ public class BasicConsumer {
                 try {
                     Thread.sleep(5000);
                     DemoService demoService = (DemoService) context.getBean("demoService");
-                    String hello = demoService.sayHello("Aeraki");
+                    String hello = demoService.sayHello("alauda service mesh");
                     System.out.println(hello);
+                    String test = demoService.sayTest("asm test");
+                    System.out.println(test);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

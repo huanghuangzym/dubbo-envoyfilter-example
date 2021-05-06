@@ -43,6 +43,20 @@ public class DemoServiceImpl implements DemoService {
     }
 
     @Override
+    public String sayTest(String name) {
+        System.out.println("[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "] Test " + name +
+                ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
+        String address = "";
+        try {
+            address = InetAddress.getLocalHost().toString();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return "Test " + name + ", response from " + address;
+    }
+
+
+    @Override
     public void testVoid() {
 
     }

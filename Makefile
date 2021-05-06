@@ -1,8 +1,8 @@
 # Build parameters
 OUT?=./target
 DOCKER_TMP?=$(OUT)/docker_temp/
-DOCKER_PROVIDER_TAG?=aeraki/dubbo-sample-provider:latest
-DOCKER_CONSUMER_TAG?=aeraki/dubbo-sample-consumer:latest
+DOCKER_PROVIDER_TAG?=harbor-b.alauda.cn/asm/dubbo-sample-provider:latest
+DOCKER_CONSUMER_TAG?=harbor-b.alauda.cn/asm/dubbo-sample-consumer:latest
 BINARY_NAME?=$(OUT)/dubbo-samples-basic-1.0-SNAPSHOT.jar
 
 build:
@@ -12,9 +12,9 @@ docker-build: build
 	mkdir $(DOCKER_TMP)
 	cp $(BINARY_NAME) $(DOCKER_TMP)
 	cp ./docker/Dockerfile.provider $(DOCKER_TMP)Dockerfile
-	docker build -t $(DOCKER_PROVIDER_TAG) $(DOCKER_TMP)
+	docker build -t $(DOCKER_PROVIDER_TAG) $(DOCKER_TMP) --push
 	cp ./docker/Dockerfile.consumer $(DOCKER_TMP)Dockerfile
-	docker build -t $(DOCKER_CONSUMER_TAG) $(DOCKER_TMP)
+	docker build -t $(DOCKER_CONSUMER_TAG) $(DOCKER_TMP) --push
 	rm -rf $(DOCKER_TMP)
 docker-push: docker-build
 	docker push $(DOCKER_PROVIDER_TAG)

@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dubbo-sample-provider-v1
+  namespace: testhl
   labels:
     app: dubbo-sample-provider
 spec:
@@ -42,6 +43,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dubbo-sample-provider-v2
+  namespace: testhl
   labels:
     app: dubbo-sample-provider
 spec:
@@ -86,6 +88,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dubbo-sample-consumer
+  namespace: testhl
   labels:
     app: dubbo-sample-consumer
 spec:
@@ -95,6 +98,9 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
+        sidecar.istio.io/logLevel: "trace"
       labels:
         app: dubbo-sample-consumer
     spec:
@@ -102,6 +108,8 @@ spec:
       containers:
         - name: dubbo-sample-consumer
           image: aeraki/dubbo-sample-consumer
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do echo hello; sleep 10;done"]
           env:
             - name: mode
               value: demo

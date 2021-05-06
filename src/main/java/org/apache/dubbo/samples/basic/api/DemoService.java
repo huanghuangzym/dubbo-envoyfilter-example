@@ -23,6 +23,8 @@ public interface DemoService {
 
     String sayHello(String name);
 
+    String sayTest(String name);
+
     void testVoid();
 
 }

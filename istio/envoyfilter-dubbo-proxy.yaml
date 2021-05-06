@@ -9,7 +9,7 @@ spec:
   - applyTo: NETWORK_FILTER
     match:
       listener:
-        name: 193.193.192.192_20880
+        name: 0.0.0.0_20880
         filterChain:
           filter:
             name: "envoy.filters.network.tcp_proxy"
@@ -33,9 +33,9 @@ spec:
               route:
                 weighted_clusters:
                   clusters:
-                    - name: "outbound|9090|v1|thrift-sample-server.thrift.svc.cluster.local"
+                    - name: "outbound|20880|v1|org.apache.dubbo.samples.basic.api.demoservice"
                       weight: 30
-                    - name: "outbound|9090|v2|thrift-sample-server.thrift.svc.cluster.local"
+                    - name: "outbound|20880|v2|org.apache.dubbo.samples.basic.api.demoservice"
                       weight: 70
   - applyTo: NETWORK_FILTER
     match:
