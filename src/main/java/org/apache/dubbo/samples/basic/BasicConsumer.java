@@ -27,6 +27,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.dubbo.rpc.RpcContext;
 
 public class BasicConsumer {
 
@@ -38,13 +39,30 @@ public class BasicConsumer {
 
         if(args.length>0 && args[0].equals("demo")) {
             System.out.println("Periodically call dubbo server");
+            RpcContext.getContext().setAttachment("foo", "bar");
+            RpcContext.getContext().setAttachment("aaa", "bbb");
+            RpcContext.getContext().setAttachment("ccc", "ddd");
             while (true) {
+                DemoService demoService = (DemoService) context.getBean("demoService");
                 try {
                     Thread.sleep(5000);
-                    DemoService demoService = (DemoService) context.getBean("demoService");
-                    String hello = demoService.sayHello("alauda service mesh");
+                    String hello = demoService.sayHello("asm");
                     System.out.println(hello);
-                    String test = demoService.sayTest("asm test");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                try {
+                    Thread.sleep(5000);
+                    String test = demoService.sayTest(" asm");
+                    System.out.println(test);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                try {
+                    Thread.sleep(5000);
+                    String test = demoService.sayAbc(" asm");
                     System.out.println(test);
                 } catch (Exception ex) {
                     ex.printStackTrace();

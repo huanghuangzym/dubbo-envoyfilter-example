@@ -47,7 +47,22 @@ public class Index {
     public Response  echoGet() {
         try{
             DemoService demoService = (DemoService) context.getBean("demoService");
-            String hello = demoService.sayHello("Aeraki");
+            String hello = demoService.sayHello("Test func");
+            System.out.println(hello);
+            return Response.status(200).entity(hello).build();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return Response.status(503).entity(ex.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/abc")
+    public Response  echoAbc() {
+        try{
+            DemoService demoService = (DemoService) context.getBean("demoService");
+            String hello = demoService.sayAbc("Test Abc");
             System.out.println(hello);
             return Response.status(200).entity(hello).build();
         }

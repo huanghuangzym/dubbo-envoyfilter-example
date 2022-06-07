@@ -25,6 +25,8 @@ public interface DemoService {
 
     String sayTest(String name);
 
+    String sayAbc(String name);
+
     void testVoid();
 
 }

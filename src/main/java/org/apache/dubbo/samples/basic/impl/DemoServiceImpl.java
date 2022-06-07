@@ -33,13 +33,14 @@ public class DemoServiceImpl implements DemoService {
     public String sayHello(String name) {
         System.out.println("[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "] Hello " + name +
                 ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
+        String aaa = RpcContext.getContext().getAttachment("aaa");
         String address = "";
         try {
             address = InetAddress.getLocalHost().toString();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        return "Hello " + name + ", response from " + address;
+        return "Hello " + name + ", response from " + address + "," +aaa;
     }
 
     @Override
@@ -53,6 +54,20 @@ public class DemoServiceImpl implements DemoService {
             e.printStackTrace();
         }
         return "Test " + name + ", response from " + address;
+    }
+
+
+    @Override
+    public String sayAbc(String name) {
+        System.out.println("[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "] Abc " + name +
+                ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
+        String address = "";
+        try {
+            address = InetAddress.getLocalHost().toString();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return "Abc " + name + ", response from " + address;
     }
 
 

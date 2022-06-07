@@ -12,9 +12,9 @@ docker-build: build
 	mkdir $(DOCKER_TMP)
 	cp $(BINARY_NAME) $(DOCKER_TMP)
 	cp ./docker/Dockerfile.provider $(DOCKER_TMP)Dockerfile
-	docker build -t $(DOCKER_PROVIDER_TAG) $(DOCKER_TMP) --push
+	docker build -t $(DOCKER_PROVIDER_TAG) $(DOCKER_TMP) 
 	cp ./docker/Dockerfile.consumer $(DOCKER_TMP)Dockerfile
-	docker build -t $(DOCKER_CONSUMER_TAG) $(DOCKER_TMP) --push
+	docker build -t $(DOCKER_CONSUMER_TAG) $(DOCKER_TMP) 
 	rm -rf $(DOCKER_TMP)
 docker-push: docker-build
 	docker push $(DOCKER_PROVIDER_TAG)
