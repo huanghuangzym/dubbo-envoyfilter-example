@@ -7,6 +7,15 @@ BINARY_NAME?=$(OUT)/dubbo-samples-basic-1.0-SNAPSHOT.jar
 
 build:
 	mvn package
+	rm -rf ./consumer
+	rm -rf ./provider
+	mkdir consumer
+	mkdir provider
+	cp $(BINARY_NAME) ./consumer/
+	cp $(BINARY_NAME) ./provider/
+	cp ./docker/Dockerfile.provider ./provider/Dockerfile
+	cp ./docker/Dockerfile.consumer ./consumer/Dockerfile
+
 docker-build: build
 	rm -rf $(DOCKER_TMP)
 	mkdir $(DOCKER_TMP)
